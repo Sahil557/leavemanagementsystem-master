@@ -2,6 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './Signup.css';
 import { Form, Icon, Input, Button, Select} from 'antd';
+import Dashboard from '../App/Dashboard';
 
 
 const Option=Select.Option;
@@ -81,6 +82,7 @@ class Signup extends React.Component {
           <Button  href="/login" type="default" htmlType="submit" className="signup-form-button">Login</Button>
        
       </Form>
+    {  <Dashboard/>}
       </div>
     );
   }

@@ -15,6 +15,7 @@ import {
     Row,
     Button,
     DatePicker,
+    Modal
 } from 'antd';
 import './ApplyLeave.css';
 const dateFormat = 'YYYY/MM/DD';
@@ -106,6 +107,31 @@ const columns = [
     },
 
   ];
+
+
+  const leave = [
+    {   
+        key: '1',
+        value: 'Sick Leave'
+    },
+    {   
+        key: '2',
+        value: 'Casual Leave'
+    },
+    {   
+        key: '3',
+        value: 'Vacation Leave'
+    },
+    {   
+        key: '4',
+        value: 'Medical Leave'
+    },
+    {   
+        key: '5',
+        value: 'Bereavement leave '
+    },
+    ]
+
 /*
 const leaveType = [];
  getAllLeaveType().then((response) => {
@@ -123,10 +149,24 @@ class ApplyLeave extends React.Component {
    constructor(props) {
        super(props);
        this.state = {
-        leaveType: [],
+        leaveType: "Type of Leave",
+        startDate: null,
+        endDate: null,
+        totalDays: null,
+        reason: '',
+        visible: false
        }
        this.refreshgetAllLeaveType = this.refreshgetAllLeaveType.bind(this)
    }
+
+    handleStartDateChange = (date) => {
+     this.setState({ startDate: date });
+    };
+  
+    handleEndDateChange = (date) => {
+      this.setState({ endDate: date });
+    };
+  
 
    
     refreshgetAllLeaveType(){
@@ -148,10 +188,59 @@ class ApplyLeave extends React.Component {
 
     }
 
-  
+    componentDidUpdate(prevProps, prevState) {
+        const { startDate, endDate } = this.state;
+        if (startDate && endDate && (startDate !== prevState.startDate || endDate !== prevState.endDate)) {
+          const totalDays = Math.round((endDate._d - startDate._d) / (1000 * 60 * 60 * 24));
+          this.setState({ totalDays : totalDays });
+        }
+      }
 
+    reasonHandler = (e) => {
+        this.setState({reason: e.target.value})
+    }
 
-   
+    leaveTypeHandler = (value) => {
+       this.setState({leaveType: value})
+    }
+
+    clearField = () => {
+        this.setState({
+            leaveType: "Type of Leave",
+            startDate: null,
+            endDate: null,
+            totalDays: null,
+            reason: null,
+           })
+    }
+
+    requireField = () => {
+        const { startDate , endDate , totalDays, reason, leaveType } = this.state
+        if(startDate === null || endDate === null || totalDays === null || reason === '' || leaveType === "Type of Leave") {
+            this.setState({visible: true});
+        }
+        else{
+            const data = {
+                startDate: this.state.startDate !== null ?this.state.startDate._d : this.state.startDate,
+                endDate: this.state.endDate !== null ?this.state.endDate._d : this.state.endDate,
+                numberOfDays: this.state.totalDays + 1,
+                leaveType: this.state.leaveType,
+                reason: this.state.reason,       
+            }
+            console.log('data11',data)
+            this.setState({
+                leaveType: "Type of Leave",
+                startDate: null,
+                endDate: null,
+                totalDays: null,
+                reason: null,
+               })
+        }
+    }
+    handleRequestModel = () => {
+        this.setState({ visible:false})
+
+    }
 
     render() {
         
@@ -181,8 +270,10 @@ class ApplyLeave extends React.Component {
                                                 <Form.Item hasFeedback label="Start Date" layout='inline'>
                                                     <div>
                                                         <DatePicker
-                                                            defaultValue={moment('2015/01/01', dateFormat)}
-                                                            format={dateFormat}/>
+                                                            required
+                                                            onChange={this.handleStartDateChange}
+                                                            format={dateFormat}
+                                                            value={this.state.startDate}/>
 
                                                     </div>
                                                 </Form.Item>
@@ -192,8 +283,10 @@ class ApplyLeave extends React.Component {
                                                 <Form.Item hasFeedback label="End Date" layout='vertical'>
                                                     <div>
                                                         <DatePicker
-                                                            defaultValue={moment('2015/01/01', dateFormat)}
-                                                            format={dateFormat}/>
+                                                            // defaultValue={moment('2023/01/01', dateFormat)}
+                                                            onChange={this.handleEndDateChange}
+                                                            format={dateFormat}
+                                                            value={this.state.endDate}/>
 
                                                     </div>
                                                 </Form.Item>
@@ -202,7 +295,7 @@ class ApplyLeave extends React.Component {
                                             <Col id="responsive-input3" span={6}>
                                                 <Form.Item hasFeedback label="Number of Days" layout='vertical'>
                                                     <div>
-                                                        <Input defaultValue="0" disabled/>
+                                                        <Input value={this.state.totalDays==null ? null : this.state.totalDays + 1} disabled/>
                                                     </div>
                                                 </Form.Item>
 
@@ -213,13 +306,15 @@ class ApplyLeave extends React.Component {
                                     <InputGroup>
                                         <Row gutter={24}>
                                             <Col id="responsive-input4" span={12}>
-                                                <Form.Item hasFeedback label="Type of Leave" layout='vertical'>
+                                                <Form.Item hasFeedback label="Select Leave Type" layout='vertical'>
                                                     <InputGroup compact>
-
-                                                        <Select defaultValue="Type of Leave">
-                                                            {this.state.leaveType}
+                                                        <Select  defaultValue="Type of Leave" value={this.state.leaveType} onChange={this.leaveTypeHandler}>
+                                                            {
+                                                                leave.map((type) => (
+                                                                    <Option value={type.value}>{type.value} </Option>
+                                                                ))
+                                                            }
                                                         </Select>
-
                                                     </InputGroup>
                                                 </Form.Item>
                                             </Col>
@@ -248,6 +343,8 @@ class ApplyLeave extends React.Component {
                                             margin: '24px 0'
                                         }}>
                                             <TextArea
+                                                value={this.state.reason}
+                                                onChange={this.reasonHandler}
                                                 placeholder="Reason"
                                                 autosize={{
                                                 minRows: 2,
@@ -258,17 +355,8 @@ class ApplyLeave extends React.Component {
 
                                     </Form.Item>
 
-                                    <Button
-                                        type="primary"
-                                        style={{
-                                        float: 'right'
-                                    }}>Request</Button>
-                                    <Button
-                                        type="danger"
-                                        style={{
-                                        float: 'right',
-                                        marginRight: '10px'
-                                    }}>Clear</Button>
+                                    <Button type="primary" style={{ float: 'right' }} onClick={this.requireField}>Request</Button>
+                                    <Button type="danger" style={{ float: 'right', marginRight: '10px' }} onClick={this.clearField}>Clear</Button>
 
                                 </Col>
                             </Row>
@@ -364,6 +452,14 @@ class ApplyLeave extends React.Component {
                         </Col>
                     </Row>
                 </div>
+                {this.state.visible && (<Modal
+                  visible={this.state.visible}
+                  title="Basic Modal"
+                  onOk={this.handleRequestModel}
+                  onCancel={this.handleRequestModel}
+                >
+                  <p>ALL FIELDS ARE MANDATORY TO BE FILLED</p>
+                </Modal>)}
   
   
             </React.Fragment>

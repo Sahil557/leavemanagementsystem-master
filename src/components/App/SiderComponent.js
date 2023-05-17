@@ -47,22 +47,22 @@ import {Link} from 'react-router-dom'
                             key="sub1"
                             title={<span><Icon type="project"/><span>Leave Management</span></span >}>
                             <Menu.Item key="2">
-                                <Link to='/applyleave'>Apply Leave</Link>
+                                <Link to='/dashboard/applyleave'>Apply Leave</Link>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <Link to='/viewcalendar'>View Calendar</Link>
+                                <Link to='/dashboard/viewcalendar'>View Calendar</Link>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <Link to='/viewleaverequest'>View leave request</Link>
+                                <Link to='/dashboard/viewleaverequest'>View leave request</Link>
                             </Menu.Item>
                             <Menu.Item key="5">
-                                <Link to='/leavehistory'>Leave history</Link>
+                                <Link to='/dashboard/leavehistory'>Leave history</Link>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <Link to='/leavecancelrequest'>Leave cancel request</Link>
+                                <Link to='/dashboard/leavecancelrequest'>Leave cancel request</Link>
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <Link to='/carryforwardrequest'>Carry forward request</Link>
+                                <Link to='/dashboard/carryforwardrequest'>Carry forward request</Link>
                             </Menu.Item>
                         </SubMenu>
 
