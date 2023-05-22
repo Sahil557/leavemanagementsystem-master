@@ -9,13 +9,15 @@ import {Link} from 'react-router-dom'
   
   class SiderComponent extends React.Component {
 
+    constructor(props){
+        super(props)
+      }
+
     logout = () =>{
 
     }
     render() {
       return (
-                
-
                 <Sider
                     trigger={null}
                     collapsible
@@ -31,7 +33,10 @@ import {Link} from 'react-router-dom'
                     <div className="logo"><a href="/">LMS</a></div>
                     <br></br>
                     <div className="container-avatar"><Avatar size="large" icon="user"/>
-                        <p style={{display: this.props.sidebar.isCollapsed ? 'none' : 'block'}}>Firstname Lastname</p>
+                        {!this.props.isAdmin ? 
+                        <p style={{display: this.props.sidebar.isCollapsed ? 'none' : 'block'}}>{this.props.userInfo.name}</p>:
+                        <p style={{display: this.props.sidebar.isCollapsed ? 'none' : 'block'}}>Admin</p>
+                        }
                     </div>
                     <Menu
                         theme="light"
@@ -42,31 +47,42 @@ import {Link} from 'react-router-dom'
                             <Icon type="pie-chart"/>
                             <span>Dashboard</span>
                         </Menu.Item>
-
-                        <SubMenu
+                            {!this.props.isAdmin &&
+                            <SubMenu
                             key="sub1"
                             title={<span><Icon type="project"/><span>Leave Management</span></span >}>
                             <Menu.Item key="2">
                                 <Link to='/dashboard/applyleave'>Apply Leave</Link>
                             </Menu.Item>
+                            
                             <Menu.Item key="3">
                                 <Link to='/dashboard/viewcalendar'>View Calendar</Link>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <Link to='/dashboard/viewleaverequest'>View leave request</Link>
-                            </Menu.Item>
-                            <Menu.Item key="5">
                                 <Link to='/dashboard/leavehistory'>Leave history</Link>
                             </Menu.Item>
-                            <Menu.Item key="6">
+                            <Menu.Item key="5">
                                 <Link to='/dashboard/leavecancelrequest'>Leave cancel request</Link>
                             </Menu.Item>
-                            <Menu.Item key="7">
+                            <Menu.Item key="6">
                                 <Link to='/dashboard/carryforwardrequest'>Carry forward request</Link>
                             </Menu.Item>
-                        </SubMenu>
+                            <Menu.Item key="7">
+                                <Link to='/dashboard/viewleaverequest'>View leave request</Link>
+                            </Menu.Item>
+                            </SubMenu>
+                            } 
+                            {this.props.isAdmin &&
+                            <SubMenu
+                            key="sub1"
+                            title={<span><Icon type="project"/><span>Leave Management</span></span >}>
+                            <Menu.Item key="8">
+                                <Link to='/dashboard/viewleaverequest'>View leave request</Link>
+                            </Menu.Item>
+                            </SubMenu>
+                            }
 
-                        <Menu.Item key="8">
+                        <Menu.Item key="9" disabled>
                             <Icon type="setting"/>
                             <span>Setting</span>
                         </Menu.Item>

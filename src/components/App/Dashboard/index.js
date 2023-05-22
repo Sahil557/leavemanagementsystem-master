@@ -18,17 +18,22 @@ import './index.css';
 const { Content, Footer, } = Layout;
 
 class Dashboard extends React.Component {
+
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         {/* <Route path="/"><Login /></Route> */}
-        <Route path="/"><SiderComponent /></Route>
+        <Route path="/"><SiderComponent userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
         <Layout><Route path="/"><HeaderComponent /></Route>
           <Content style={{ margin: '24px 16px 0' }}>
             <Switch>
               <Route path='/dashboard/signup' component={SignUp} />
               <Route path='/dashboard/forgotpass' component={ForgotPassword} />
-              <Route path='/dashboard/applyleave'><ApplyLeave /></Route>
+              <Route path='/dashboard/applyleave'><ApplyLeave userInfo={this.props.userInfo} /></Route>
               <Route path='/dashboard/carryforwardrequest' component={CarryForwardRequest} />
               <Route path='/dashboard/leavecancelrequest' component={LeaveCancelRequest} />
               <Route path='/dashboard/leavehistory' component={LeaveHistory} />

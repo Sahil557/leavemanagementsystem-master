@@ -8,6 +8,11 @@ class ViewLeaveRequest extends React.Component {
   render() {
     const columns = [
       {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+      },
+      {
         title: 'Employee Name',
         dataIndex: 'name',
         key: 'name',
@@ -30,20 +35,30 @@ class ViewLeaveRequest extends React.Component {
       },
       {
         title: 'Leave Type',
+        key: 'type',
+        dataIndex: 'type',
+      },
+      {
+        title: 'Reason',
+        key: 'reason',
+        dataIndex: 'reason',
+      },
+      {
+        title: 'Status',
         key: 'tags',
         dataIndex: 'tags',
         render: tags => (
           <span>
             {tags.map(tag => {
               let color = tag;
-              if (tag === 'Medical') {
-                color = 'volcano';
+              if (tag === 'Pending') {
+                color = 'orange';
               }
-              else if (tag === 'Annual') {
-                color = 'green';
+              else if (tag === 'Approved') {
+                color = 'darkgreen';
               }
-              else if (tag === 'Casual') {
-                color = 'geekblue';
+              else if (tag === 'Rejected') {
+                color = 'darkred';
               }
 
               return (
@@ -55,54 +70,52 @@ class ViewLeaveRequest extends React.Component {
           </span>
         ),
       },
-      {
-        title: 'Reason',
-        key: 'reason',
-        dataIndex: 'reason',
-      },
-
     ];
 
     const data = [
       {
         key: '1',
-
+        id: 'PSS066',
         sdate: '2019/05/21',
         edate: '2019/05/22',
         number: '2',
         reason: 'Medical',
         name: 'Karan',
-        tags: ['Medical'],
+        type: 'Medical',
+        tags: ['Pending'],
       },
       {
         key: '2',
-
+        id: 'PSS066',
         sdate: '2019/05/21',
         edate: '2019/05/23',
         number: '3',
         reason: 'Wedding',
         name: 'Sujeeban',
-        tags: ['Casual'],
+        type: 'Personal',
+        tags: ['Approved'],
       },
       {
         key: '3',
-
+        id: 'PSS066',
         sdate: '2019/05/21',
         edate: '2019/05/27',
         number: '7',
         reason: 'Trip',
         name: 'Keerthi',
-        tags: ['Annual'],
+        type: 'Personal',
+        tags: ['Approved'],
       },
       {
         key: '4',
-
+        id: 'PSS066',
         sdate: '2019/05/21',
         edate: '2019/05/27',
         number: '7',
         reason: 'Trip',
         name: 'Priyanka',
-        tags: ['Annual'],
+        type: 'Medical',
+        tags: ['Rejected'],
       },
 
 
