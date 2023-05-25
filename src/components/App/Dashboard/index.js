@@ -33,7 +33,7 @@ class Dashboard extends React.Component {
             <Switch>
               <Route path='/dashboard/signup' component={SignUp} />
               <Route path='/dashboard/forgotpass' component={ForgotPassword} />
-              <Route path='/dashboard/applyleave'><ApplyLeave userInfo={this.props.userInfo} /></Route>
+              <Route path='/dashboard/applyleave'><ApplyLeave userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
               <Route path='/dashboard/carryforwardrequest' component={CarryForwardRequest} />
               <Route path='/dashboard/leavecancelrequest' component={LeaveCancelRequest} />
               <Route path='/dashboard/leavehistory' component={LeaveHistory} />

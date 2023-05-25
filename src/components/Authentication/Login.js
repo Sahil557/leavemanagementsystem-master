@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Login.css';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { Link } from 'react-router-dom';  
+// import { Link } from 'react-router-dom';  
 import Dashboard from '../App/Dashboard';
 
 class Login extends React.Component {
@@ -33,6 +33,24 @@ class Login extends React.Component {
         .catch((error) => {
         });
     }
+  
+    componentDidMount() {
+      this.getData();
+    }
+
+    getData = () => {
+      debugger;
+      const { isAdmin, id } = this.state;
+      axios.get(`http://localhost:3001/users-config-grid/${isAdmin ? id : 'admin'}`)
+        .then((response) =>{
+            console.log('getdataResponse---', response.data)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }
+
+    
 
 
   render() {

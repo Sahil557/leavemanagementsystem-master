@@ -55,16 +55,16 @@ import {Link} from 'react-router-dom'
                                 <Link to='/dashboard/applyleave'>Apply Leave</Link>
                             </Menu.Item>
                             
-                            <Menu.Item key="3">
+                            <Menu.Item key="3" disabled>
                                 <Link to='/dashboard/viewcalendar'>View Calendar</Link>
                             </Menu.Item>
-                            <Menu.Item key="4">
+                            <Menu.Item key="4" disabled>
                                 <Link to='/dashboard/leavehistory'>Leave history</Link>
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="5" disabled>
                                 <Link to='/dashboard/leavecancelrequest'>Leave cancel request</Link>
                             </Menu.Item>
-                            <Menu.Item key="6">
+                            <Menu.Item key="6" disabled>
                                 <Link to='/dashboard/carryforwardrequest'>Carry forward request</Link>
                             </Menu.Item>
                             <Menu.Item key="7">

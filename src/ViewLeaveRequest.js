@@ -1,16 +1,39 @@
 import React from 'react';
+import axios from 'axios';
 import { Breadcrumb, Table, Tag, Input } from 'antd';
 
 const Search = Input.Search;
 
 class ViewLeaveRequest extends React.Component {
 
+  constructor() {
+    super()
+    this.state = {
+      data: []
+    }
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
+    debugger;
+    axios.get(`http://localhost:3001/users-config-grid/admin`)
+      .then((response) => {
+        this.setState({ data: response.data })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
     const columns = [
       {
         title: 'ID',
-        dataIndex: 'id',
-        key: 'id',
+        dataIndex: 'emp_id',
+        key: 'emp_id',
       },
       {
         title: 'Employee Name',
@@ -19,24 +42,24 @@ class ViewLeaveRequest extends React.Component {
       },
       {
         title: 'Start Date',
-        dataIndex: 'sdate',
-        key: 'date',
+        dataIndex: 'start_date',
+        key: 'start_date',
       },
       {
         title: 'End Date',
-        dataIndex: 'edate',
-        key: 'date',
+        dataIndex: 'end_date',
+        key: 'end_date',
       },
       {
         title: 'Number of Days',
-        key: 'number',
-        dataIndex: 'number',
+        key: 'total_days',
+        dataIndex: 'total_days',
 
       },
       {
         title: 'Leave Type',
-        key: 'type',
-        dataIndex: 'type',
+        key: 'leave_type',
+        dataIndex: 'leave_type',
       },
       {
         title: 'Reason',
@@ -45,81 +68,24 @@ class ViewLeaveRequest extends React.Component {
       },
       {
         title: 'Status',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
+        key: 'status',
+        dataIndex: 'status',
+        render: status => (
           <span>
-            {tags.map(tag => {
-              let color = tag;
-              if (tag === 'Pending') {
-                color = 'orange';
-              }
-              else if (tag === 'Approved') {
-                color = 'darkgreen';
-              }
-              else if (tag === 'Rejected') {
-                color = 'darkred';
-              }
-
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
+            {status === 'pending' ?
+              <Tag color={"orange"} key={status}>
+                {status}
+              </Tag> :
+              status === 'approved' ?
+                <Tag color={"darkgreen"} key={status}>
+                  {status}
+                </Tag> :
+                <Tag color={"darkred"} key={status}>
+                  {status}
+                </Tag>}
           </span>
         ),
       },
-    ];
-
-    const data = [
-      {
-        key: '1',
-        id: 'PSS066',
-        sdate: '2019/05/21',
-        edate: '2019/05/22',
-        number: '2',
-        reason: 'Medical',
-        name: 'Karan',
-        type: 'Medical',
-        tags: ['Pending'],
-      },
-      {
-        key: '2',
-        id: 'PSS066',
-        sdate: '2019/05/21',
-        edate: '2019/05/23',
-        number: '3',
-        reason: 'Wedding',
-        name: 'Sujeeban',
-        type: 'Personal',
-        tags: ['Approved'],
-      },
-      {
-        key: '3',
-        id: 'PSS066',
-        sdate: '2019/05/21',
-        edate: '2019/05/27',
-        number: '7',
-        reason: 'Trip',
-        name: 'Keerthi',
-        type: 'Personal',
-        tags: ['Approved'],
-      },
-      {
-        key: '4',
-        id: 'PSS066',
-        sdate: '2019/05/21',
-        edate: '2019/05/27',
-        number: '7',
-        reason: 'Trip',
-        name: 'Priyanka',
-        type: 'Medical',
-        tags: ['Rejected'],
-      },
-
-
-
     ];
 
     return (
@@ -132,7 +98,7 @@ class ViewLeaveRequest extends React.Component {
           <Search placeholder="Search..." onSearch={value => console.log(value)} style={{ width: 200 }} />
           <br></br>
           <br></br>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns} dataSource={this.state.data} />
 
         </div>
       </React.Fragment>

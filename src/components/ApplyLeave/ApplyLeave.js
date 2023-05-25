@@ -24,93 +24,6 @@ const Option = Select.Option;
 const { TextArea } = Input;
 const props = Upload;
 
-const columns = [
-    {
-        title: 'Start Date',
-        dataIndex: 'sdate',
-    },
-    {
-        title: 'End Date',
-        dataIndex: 'edate',
-    },
-    {
-        title: 'Number of Days',
-        dataIndex: 'number',
-    },
-    {
-        title: 'Leave Type',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-            <span>
-                {tags.map(tag => {
-                    let color = tag;
-                    if (tag === 'Medical') {
-                        color = 'volcano';
-                    }
-                    else if (tag === 'Annual') {
-                        color = 'green';
-                    }
-                    else if (tag === 'Casual') {
-                        color = 'geekblue';
-                    }
-
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </span>
-        ),
-    },
-
-
-    
-    {
-        title: 'Reason',
-        dataIndex: 'reason',
-    },
-    {
-        title: 'Status',
-        dataIndex: 'status',
-
-    },
-
-];
-
-const data = [
-    {
-        key: '1',
-        tags: ['Medical'],
-        sdate: '2019/05/21',
-        edate: '2019/05/22',
-        number: '2',
-        reason: 'Medical',
-        status: '1',
-    },
-    {
-        key: '2',
-        tags: ['Casual'],
-        sdate: '2019/05/21',
-        edate: '2019/05/23',
-        number: '3',
-        reason: 'Wedding',
-        status: '1',
-    },
-    {
-        key: '3',
-        tags: ['Annual'],
-        sdate: '2019/05/21',
-        edate: '2019/05/27',
-        number: '7',
-        reason: 'Trip',
-        status: '1',
-    },
-
-];
-
-
 const leave = [
     {
         key: '1',
@@ -134,18 +47,6 @@ const leave = [
     },
 ]
 
-/*
-const leaveType = [];
- getAllLeaveType().then((response) => {
-        for (let i = 0; i < response.length; i++) {
-  
-            leaveType.push(<Option key={response[i].leaveTypeValue}>{response[i].leaveTypeValue}</Option>);
-
-        }
-        
-    });
-*/
-
 class ApplyLeave extends React.Component {
 
     constructor(props) {
@@ -156,7 +57,10 @@ class ApplyLeave extends React.Component {
             endDate: null,
             totalDays: null,
             reason: '',
-            visible: false
+            visible: false,
+            data: [],
+            // loading: true,
+            // error: null
         }
         this.refreshgetAllLeaveType = this.refreshgetAllLeaveType.bind(this)
     }
@@ -169,7 +73,9 @@ class ApplyLeave extends React.Component {
         this.setState({ endDate: date });
     };
 
-
+    disabledDate = (current) => {
+        return current && current < moment().startOf('day');
+    };
 
     refreshgetAllLeaveType() {
         /* this.state.leaveType.splice(0, this.state.leaveType.length);
@@ -236,14 +142,18 @@ class ApplyLeave extends React.Component {
             const baseURL = "http://localhost:3001/empleave";
             axios.post(baseURL, data)
                 .then((response) => {
-                    console.log('data11', response.data)
+                    console.log('empleave11--', response.data)
+                    
+                    // this.setState({ data: response.data, loading: false });
+                    // this.setState({ data: response.data });
                 })
                 .catch(error => {
                     // Handle any errors
                     console.error(error);
+                    // this.setState({ error: error.message, loading: false });
+                    this.setState({ error: error.message });
                 });
 
-            // console.log('data11',data)
             this.setState({
                 leaveType: "Type of Leave",
                 startDate: null,
@@ -253,12 +163,79 @@ class ApplyLeave extends React.Component {
             })
         }
     }
+
+
+    componentDidMount() {
+        this.getData();
+    }
+
+    // componentDidUpdate() {
+    //     this.getData();
+    // }
+
+    getData = () => {
+        debugger;
+        axios.get(`http://localhost:3001/users-config-grid/${this.props.userInfo.emp_id}`)
+            .then((response) => {
+                console.log('getempresponse', response.data);
+                this.setState({ data: response.data });
+
+            })
+            .catch(error => {
+                console.log('error', error);
+            });
+    }
+
     handleRequestModel = () => {
         this.setState({ visible: false })
 
     }
 
     render() {
+
+        const columns = [
+            {
+                title: 'Start Date',
+                dataIndex: 'start_date',
+                key: 'start_date'
+            },
+            {
+                title: 'End Date',
+                dataIndex: 'end_date',
+                key: 'end_date'
+            },
+            {
+                title: 'Number of Days',
+                dataIndex: 'total_days',
+                key: 'total_days'
+            },
+            {
+                title: 'Leave Type',
+                dataIndex: 'leave_type',
+                key: 'leave_type'
+
+            },
+            {
+                title: 'Reason',
+                dataIndex: 'reason',
+                key: 'reason',
+            },
+            {
+                title: 'Status',
+                key: 'status',
+                dataIndex: 'status',
+                render: status => (
+                    <span>
+                        {status === 'pending' &&
+                            <Tag color={"orange"} key={status}>
+                                {status}
+                            </Tag>
+                        }
+                    </span>
+
+                ),
+            },
+        ];
 
         return (
             <React.Fragment>
@@ -286,7 +263,7 @@ class ApplyLeave extends React.Component {
                                                 <Form.Item hasFeedback label="Start Date" layout='inline'>
                                                     <div>
                                                         <DatePicker
-                                                            required
+                                                            disabledDate={this.disabledDate}
                                                             onChange={this.handleStartDateChange}
                                                             format={dateFormat}
                                                             value={this.state.startDate} />
@@ -299,7 +276,7 @@ class ApplyLeave extends React.Component {
                                                 <Form.Item hasFeedback label="End Date" layout='vertical'>
                                                     <div>
                                                         <DatePicker
-                                                            // defaultValue={moment('2023/01/01', dateFormat)}
+                                                            disabledDate={this.disabledDate}
                                                             onChange={this.handleEndDateChange}
                                                             format={dateFormat}
                                                             value={this.state.endDate} />
@@ -447,11 +424,8 @@ class ApplyLeave extends React.Component {
                     </Col>
                 </Row>
 
-                <Breadcrumb style={{
-                    margin: '16px 0'
-                }}>
-                    <Breadcrumb.Item>
-                        Leave History</Breadcrumb.Item>
+                <Breadcrumb style={{ margin: '16px 0' }}>
+                    <Breadcrumb.Item>Leave History</Breadcrumb.Item>
                 </Breadcrumb>
                 <div
                     style={{
@@ -462,20 +436,20 @@ class ApplyLeave extends React.Component {
                     }}>
                     <Row >
                         <Col span={24}>
-
-                            <Table columns={columns} dataSource={data} />
-
+                            <Table columns={columns} dataSource={this.state.data} />
                         </Col>
                     </Row>
                 </div>
-                {this.state.visible && (<Modal
-                    visible={this.state.visible}
-                    title="Basic Modal"
-                    onOk={this.handleRequestModel}
-                    onCancel={this.handleRequestModel}
-                >
-                    <p>ALL FIELDS ARE MANDATORY TO BE FILLED</p>
-                </Modal>)}
+                {this.state.visible && (
+                    <Modal
+                        visible={this.state.visible}
+                        title="Basic Modal"
+                        onOk={this.handleRequestModel}
+                        onCancel={this.handleRequestModel}
+                    >
+                        <p>ALL FIELDS ARE MANDATORY TO BE FILLED</p>
+                    </Modal>)
+                }
 
 
             </React.Fragment>
