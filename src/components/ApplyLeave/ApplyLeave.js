@@ -166,19 +166,12 @@ class ApplyLeave extends React.Component {
 
 
     componentDidMount() {
-        this.getData();
-    }
-
-    // componentDidUpdate() {
-    //     this.getData();
-    // }
-
-    getData = () => {
         debugger;
         axios.get(`http://localhost:3001/users-config-grid/${this.props.userInfo.emp_id}`)
             .then((response) => {
-                console.log('getempresponse', response.data);
-                this.setState({ data: response.data });
+                this.setState({ data: response.data }, () => {
+                    console.log('getempresponse', this.state.data);
+                });
 
             })
             .catch(error => {
@@ -195,19 +188,20 @@ class ApplyLeave extends React.Component {
 
         const columns = [
             {
-                title: 'Start Date',
+                title: 'From',
                 dataIndex: 'start_date',
                 key: 'start_date'
             },
             {
-                title: 'End Date',
+                title: 'To',
                 dataIndex: 'end_date',
                 key: 'end_date'
             },
             {
                 title: 'Number of Days',
                 dataIndex: 'total_days',
-                key: 'total_days'
+                key: 'total_days',
+                align: 'center'
             },
             {
                 title: 'Leave Type',
@@ -446,6 +440,8 @@ class ApplyLeave extends React.Component {
                         title="Basic Modal"
                         onOk={this.handleRequestModel}
                         onCancel={this.handleRequestModel}
+                        footer={null}
+                        centered
                     >
                         <p>ALL FIELDS ARE MANDATORY TO BE FILLED</p>
                     </Modal>)
