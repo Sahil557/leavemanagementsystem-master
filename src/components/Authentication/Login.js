@@ -39,7 +39,6 @@ class Login extends React.Component {
     }
 
     getData = () => {
-      debugger;
       const { isAdmin, id } = this.state;
       axios.get(`http://localhost:3001/users-config-grid/${isAdmin ? id : 'admin'}`)
         .then((response) =>{

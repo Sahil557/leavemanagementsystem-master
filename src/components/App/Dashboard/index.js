@@ -38,7 +38,9 @@ class Dashboard extends React.Component {
               <Route path='/dashboard/leavecancelrequest' component={LeaveCancelRequest} />
               <Route path='/dashboard/leavehistory' component={LeaveHistory} />
               <Route path='/dashboard/viewcalendar' component={ViewCalendar} />
-              <Route path='/dashboard/viewleaverequest' component={ViewLeaveRequest} />
+              {/* <Route path='/dashboard/viewleaverequest' component={ViewLeaveRequest} /> */}
+              <Route path='/dashboard/viewleaverequest' render={(props) => <ViewLeaveRequest isAdmin={this.props.isAdmin} />} />
+
             </Switch>
           </Content>
           {/* <div style={{ marginLeft: '20px', padding: 24, background: '#fff', minHeight: 50, width: 450, background: 'pink' }}>

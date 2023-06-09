@@ -166,7 +166,6 @@ class ApplyLeave extends React.Component {
 
 
     componentDidMount() {
-        debugger;
         axios.get(`http://localhost:3001/users-config-grid/${this.props.userInfo.emp_id}`)
             .then((response) => {
                 this.setState({ data: response.data }, () => {

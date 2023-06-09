@@ -13,8 +13,8 @@ const { TextArea } = Input;
 
 class ViewLeaveRequest extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       data: [],
       visible: false,
@@ -31,7 +31,6 @@ class ViewLeaveRequest extends React.Component {
   }
 
   getData = () => {
-    debugger;
     axios.get(`http://localhost:3001/users-config-grid/admin`)
       .then((response) => {
         this.setState({ data: response.data })
@@ -136,64 +135,66 @@ class ViewLeaveRequest extends React.Component {
           })} />
 
         </div>
-        <Modal
-          visible={this.state.visible}
-          title={this.state.selectedRow ? <b>{this.state.selectedRow.name} ({this.state.selectedRow.emp_id})</b> : ''}
-          onCancel={this.handleModalClose}
-          footer={null}
-          centered
-        >
-          {this.state.selectedRow ?
-            <>
-              <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span><b>To :</b></span>
-                <span>{this.state.selectedRow.start_date}</span>
-              </p>
-              <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span><b>From :</b></span>
-                <span>{this.state.selectedRow.end_date}</span>
-              </p>
-              <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span><b>Total Days :</b></span>
-                <span>{this.state.selectedRow.total_days}</span>
-              </p>
-              <p style={{ display: 'flex', justifyContent: 'space-between'}}>
-                <span><b>Leave Type :</b></span>
-                <span>{this.state.selectedRow.leave_type}</span>
-              </p>
-              <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span><b>Reason :</b></span>
-                <span>{this.state.selectedRow.reason}</span>
-              </p>
-              <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span><b>Status :</b></span>
-                <Select defaultValue={this.state.selectedRow.status} onChange={this.handleChange}>
-                  {/* <Option value="default" disabled>Select an option</Option> */}
-                  <Option value="option1">{this.state.selectedRow.status}</Option>
-                  <Option value="option2">Option 2</Option>
-                  <Option value="option3">Option 3</Option>
-                </Select>
-              </p>
-              <div
-                style={{
+        {this.props.isAdmin &&
+          <Modal
+            visible={this.state.visible}
+            title={this.state.selectedRow ? <b>{this.state.selectedRow.name} ({this.state.selectedRow.emp_id})</b> : ''}
+            onCancel={this.handleModalClose}
+            footer={null}
+            centered
+          >
+            {this.state.selectedRow ?
+              <>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>To :</b></span>
+                  <span>{this.state.selectedRow.start_date}</span>
+                </p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>From :</b></span>
+                  <span>{this.state.selectedRow.end_date}</span>
+                </p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>Total Days :</b></span>
+                  <span>{this.state.selectedRow.total_days}</span>
+                </p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>Leave Type :</b></span>
+                  <span>{this.state.selectedRow.leave_type}</span>
+                </p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>Reason :</b></span>
+                  <span>{this.state.selectedRow.reason}</span>
+                </p>
+                <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span><b>Status :</b></span>
+                  <Select defaultValue={this.state.selectedRow.status} onChange={this.handleChange}>
+                    {/* <Option value="default" disabled>Select an option</Option> */}
+                    <Option value="option1">{this.state.selectedRow.status}</Option>
+                    <Option value="option2">Option 2</Option>
+                    <Option value="option3">Option 3</Option>
+                  </Select>
+                </p>
+                <div
+                  style={{
                     margin: '24px 0'
-                }}>
-                <TextArea
+                  }}>
+                  <TextArea
                     value={this.state.reason}
                     onChange={this.reasonHandler}
                     placeholder="Reason"
                     autosize={{
-                        minRows: 2,
-                        maxRows: 8
+                      minRows: 2,
+                      maxRows: 8
                     }} />
-              </div>
-                <Divider/>
-              <div style={{overflow: 'auto'}}>
-              <Button type="primary" style={{ float: 'right' }} >Submit</Button>
-              </div>
-            </> :
-            ''}
-        </Modal>
+                </div>
+                <Divider />
+                <div style={{ overflow: 'auto' }}>
+                  <Button type="primary" style={{ float: 'right' }} >Submit</Button>
+                </div>
+              </> :
+              ''}
+          </Modal>
+        }
       </React.Fragment>
 
     );
