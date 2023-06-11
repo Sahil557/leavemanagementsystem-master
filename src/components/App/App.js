@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch} from 'react-router-dom';
-// import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 import './App.css';
 import Login from '../Authentication/Login'
 
@@ -10,8 +10,8 @@ class App extends React.Component {
   return (
       <div>
         <Switch>
-          {/* <Route path='/dashboard' component={Dashboard} />  */}
           <Route path='/' component={Login}/> 
+          {/* <Route path='/dashboard' component={Dashboard} />  */}
         </Switch>
     </div>
   );

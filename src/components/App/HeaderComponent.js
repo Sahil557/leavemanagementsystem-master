@@ -86,7 +86,8 @@ class HeaderComponent extends React.Component {
                         <Icon style={{ color: 'white', fontSize: '18px', padding: '20px 0 20px 20px', float: 'right' }}
                             align="right"
                             type="logout"
-                            onClick={this.logout}/>
+                            onClick={this.logout}
+                            />
                         </Link>
                     </Col>
                 </Row>

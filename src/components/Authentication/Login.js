@@ -3,8 +3,12 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Login.css';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-// import { Link } from 'react-router-dom';  
-import Dashboard from '../App/Dashboard';
+import { Route, Link } from 'react-router-dom';  
+// import Dashboard from '../App/Dashboard/Dashboard';
+// import Pathcomp from '../App/Route';
+// import PathComp from '../App/Routes'
+import RoutesPath from '../App/Routing/RoutesPath';
+import Dashboard from '../App/Dashboard/Dashboard';
 
 class Login extends React.Component {
 
@@ -48,9 +52,6 @@ class Login extends React.Component {
             console.error(error);
         });
       }
-
-    
-
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -98,12 +99,12 @@ class Login extends React.Component {
                   Forgot password
                 </a>
                 <div>
-                  {/* <Link to='/dashboard'> */}
+                  <Link to='/dashboard'>
                   <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
                     Log in
                   </Button>
+                  </Link>
                   <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
-                  {/* </Link> */}
                 </div>
                 {/* <div className="text-right p-t-225">
               <span className="txt1">Don’t have an account? </span>
@@ -112,7 +113,7 @@ class Login extends React.Component {
               </Form.Item>
             </Form>
           </div>
-          : <Dashboard userInfo={this.state.userInfo} isAdmin={this.state.isAdmin} />
+          : <RoutesPath userInfo={this.state.userInfo} isAdmin={this.state.isAdmin} />
         }
       </div>
     );

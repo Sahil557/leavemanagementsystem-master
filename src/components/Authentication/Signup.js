@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './Signup.css';
 import { Form, Icon, Input, Button, Select} from 'antd';
-import Dashboard from '../App/Dashboard';
+import Dashboard from '../App/Dashboard/Dashboard';
 
 
 const Option=Select.Option;
