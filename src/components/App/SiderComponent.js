@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Layout, Menu, Icon, Avatar} from 'antd';
 import {Link} from 'react-router-dom'
-//import './Dashboard.css';
+
   const { Sider,} = Layout;
   const SubMenu = Menu.SubMenu;
   

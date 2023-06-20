@@ -33,6 +33,7 @@ class ViewLeaveRequest extends React.Component {
   getData = () => {
     axios.get(`http://localhost:3001/users-config-grid/admin`)
       .then((response) => {
+        console.log('data-----', response.data)
         this.setState({ data: response.data })
       })
       .catch(error => {
@@ -170,8 +171,8 @@ class ViewLeaveRequest extends React.Component {
                   <Select defaultValue={this.state.selectedRow.status} onChange={this.handleChange}>
                     {/* <Option value="default" disabled>Select an option</Option> */}
                     <Option value="option1">{this.state.selectedRow.status}</Option>
-                    <Option value="option2">Option 2</Option>
-                    <Option value="option3">Option 3</Option>
+                    <Option value="option2">Accepted</Option>
+                    <Option value="option3">Rejected</Option>
                   </Select>
                 </p>
                 <div

@@ -82,7 +82,7 @@ class HeaderComponent extends React.Component {
                         </Badge>
                     </Col>
                     <Col span={12}>
-                        <Link to="/login">
+                        <Link to="/dashboard">
                         <Icon style={{ color: 'white', fontSize: '18px', padding: '20px 0 20px 20px', float: 'right' }}
                             align="right"
                             type="logout"

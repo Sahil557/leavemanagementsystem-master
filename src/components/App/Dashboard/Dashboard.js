@@ -1,66 +1,47 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Layout, Row, Col, Statistic, Icon } from 'antd';
-import { Route, Switch } from 'react-router-dom'
-import ApplyLeave from '../../ApplyLeave/ApplyLeave';
-import CarryForwardRequest from '../../../CarryForwardRequest';
-import LeaveCancelRequest from '../../../LeaveCancelRequest';
-import LeaveHistory from '../../../LeaveHistory';
-import ViewCalendar from '../../ViewCalendar/ViewCalendar';
-import ViewLeaveRequest from '../../../ViewLeaveRequest';
-// import Login from '../../Authentication/Login';
-import SignUp from '../../Authentication/Signup';
-import ForgotPassword from '../../Authentication/ForgetPassword';
-import HeaderComponent from '../HeaderComponent';
-import SiderComponent from '../SiderComponent';
 import './Dashboard.css';
 const { Content, Footer, } = Layout;
 
 class Dashboard extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
   render() {
     return (
-    //   <Layout style={{ minHeight: '100vh' }}>
-    //     {/* <Route path="/"><Login /></Route> */}
-    //     <Route path="/"><SiderComponent userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
-    //     <Layout><Route path="/"><HeaderComponent /></Route>
-    //       <Content style={{ margin: '24px 16px 0' }}>
-    //         <Switch>
-    //           <Route path='/dashboard/signup' component={SignUp} />
-    //           <Route path='/dashboard/forgotpass' component={ForgotPassword} />
-    //           <Route path='/dashboard/applyleave'><ApplyLeave userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
-    //           <Route path='/dashboard/carryforwardrequest' component={CarryForwardRequest} />
-    //           <Route path='/dashboard/leavecancelrequest' component={LeaveCancelRequest} />
-    //           <Route path='/dashboard/leavehistory' component={LeaveHistory} />
-    //           <Route path='/dashboard/viewcalendar' component={ViewCalendar} />
-    //           {/* <Route path='/dashboard/viewleaverequest' component={ViewLeaveRequest} /> */}
-    //           <Route path='/dashboard/viewleaverequest' render={(props) => <ViewLeaveRequest isAdmin={this.props.isAdmin} />} />
-
-    //         </Switch>
-    //       </Content>
-          
-    //     </Layout>
-    //  </Layout>
-    <>
-    <div style={{ marginLeft: '20px', padding: 24, background: '#fff', minHeight: 50, width: 450, background: 'pink' }}>
-            <span style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
-              <Icon style={{ fontSize: '34px' }} type="usergroup-add" />
+      <>
+        <div style={{ marginLeft: '20px', padding: 24, background: '#fff', minHeight: 30, width: 450, background: 'pink' }}>
+          {/* <span style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}> */}
+          <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span style={{ display: 'flex', justifyContent: 'start' }}>
+              <Icon style={{marginTop: '12px', marginRight: '13px', fontSize: '34px'}} type="usergroup-add" />
               <Statistic title="Total" value={'Staff'} />
+            </span>
+            <span style={{marginTop: '12px'}}>
               <Statistic value={60} />
             </span>
-          </div>
-          <Footer
-            style={{
-              textAlign: 'center'
-            }}>
-            Human Resource Management System ©2018 Created by SGIC
-          </Footer>
-    </>
+          </span>
+          {/* <br/>
+          <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span style={{ display: 'flex', justifyContent: 'start' }}>
+              <Icon style={{marginTop: '12px', marginRight: '13px', fontSize: '34px'}} type="usergroup-add" />
+              <Statistic title="Total" value={'Staff'} />
+            </span>
+            <span style={{marginTop: '12px'}}>
+              <Statistic value={60} />
+            </span>
+          </span> */}
+        </div>
+        <Footer
+          style={{
+            textAlign: 'center'
+          }}>
+          Hey user
+        </Footer>
+      </>
 
     );
 

@@ -15,8 +15,11 @@ import {
     Row,
     Button,
     DatePicker,
-    Modal
+    Modal,
+    Alert,
+    notification
 } from 'antd';
+// import { SmileOutlined } from '@ant-design/icons';
 import './ApplyLeave.css';
 const dateFormat = 'YYYY/MM/DD';
 const InputGroup = Input.Group;
@@ -142,16 +145,29 @@ class ApplyLeave extends React.Component {
             const baseURL = "http://localhost:3001/empleave";
             axios.post(baseURL, data)
                 .then((response) => {
-                    console.log('empleave11--', response.data)
-                    
+                    console.log('empleave11--', response)
+                    if(response.status === 200){
+                        notification.success({
+                            message: 'Success',
+                            description: 'Your Response Sent Successfully',
+                            placement: 'topRight',
+                            // icon: <SmileOutlined style={{ color: '#108ee9' }} />
+                          });
+                    }else {
+                        notification.error({
+                            message: 'Error',
+                            description: 'This is a success alert',
+                            placement: 'topRight',
+                          });
+                    }
                     // this.setState({ data: response.data, loading: false });
                     // this.setState({ data: response.data });
                 })
                 .catch(error => {
                     // Handle any errors
-                    console.error(error);
-                    // this.setState({ error: error.message, loading: false });
-                    this.setState({ error: error.message });
+                    console.error('error--',error);
+                    // // this.setState({ error: error.message, loading: false });
+                    // this.setState({ error: error.message });
                 });
 
             this.setState({
@@ -240,6 +256,7 @@ class ApplyLeave extends React.Component {
                             }}>
                             <Breadcrumb.Item>Leave Managment</Breadcrumb.Item>
                             <Breadcrumb.Item>Apply Leave</Breadcrumb.Item>
+                           
                         </Breadcrumb>
                         <div
                             style={{
@@ -429,11 +446,13 @@ class ApplyLeave extends React.Component {
                     }}>
                     <Row >
                         <Col span={24}>
-                            <Table columns={columns} dataSource={this.state.data} />
+                            {/* <Table columns={columns} dataSource={this.state.data} /> */}
                         </Col>
                     </Row>
                 </div>
+                
                 {this.state.visible && (
+                    <>
                     <Modal
                         visible={this.state.visible}
                         title="Basic Modal"
@@ -443,7 +462,9 @@ class ApplyLeave extends React.Component {
                         centered
                     >
                         <p>ALL FIELDS ARE MANDATORY TO BE FILLED</p>
-                    </Modal>)
+                    </Modal>
+                    </>
+                    )
                 }
 
 

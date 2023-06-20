@@ -2,13 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Login.css';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
 import { Route, Link } from 'react-router-dom';  
 // import Dashboard from '../App/Dashboard/Dashboard';
 // import Pathcomp from '../App/Route';
 // import PathComp from '../App/Routes'
 import RoutesPath from '../App/Routing/RoutesPath';
-import Dashboard from '../App/Dashboard/Dashboard';
 
 class Login extends React.Component {
 
@@ -32,6 +31,11 @@ class Login extends React.Component {
           if (response.data.length) {
             this.setState({ userInfo: response.data[0] });
             this.setState({ isDashboard: true })
+            notification.success({
+              message: 'Success',
+              description: `Hey ${this.state.isAdmin ? "Admin" : response.data[0].name}, Welcome to LMS`,
+              placement: 'topRight',
+            });
           }
         })
         .catch((error) => {
@@ -56,7 +60,7 @@ class Login extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-
+      <>
       <div className="wrapper">
         {!this.state.isDashboard ?
           <div className="login-center">
@@ -116,6 +120,7 @@ class Login extends React.Component {
           : <RoutesPath userInfo={this.state.userInfo} isAdmin={this.state.isAdmin} />
         }
       </div>
+      </>
     );
   }
 }
