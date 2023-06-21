@@ -21,44 +21,44 @@ const { Content, Footer, } = Layout;
 
 class RoutesPath extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
+  constructor(props) {
+    super(props)
+  }
 
-    render() {
-        return (
-            <Layout style={{ minHeight: '100vh' }}>
-                <Route path="/">
-                    <SiderComponent userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} />
-                </Route>
-                <Layout>
-                    <Route path="/">
-                        <HeaderComponent />
-                    </Route>
-                    <Content style={{ margin: '24px 16px 0' }}>
-                        <Switch>
-                            <Route path='/dashboard' component={Dashboard} />
-                            <Route path='/signup' component={SignUp} />
-                            <Route path='/forgotpass' component={ForgotPassword} />
-                            <Route path='/applyleave'><ApplyLeave userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
-                            <Route path='/carryforwardrequest' component={CarryForwardRequest} />
-                            <Route path='/leavecancelrequest' component={LeaveCancelRequest} />
-                            <Route path='/leavehistory' component={LeaveHistory} />
-                            <Route path='/viewcalendar' component={ViewCalendar} />
-                            <Route path='/viewleaverequest' render={(props) => <ViewLeaveRequest isAdmin={this.props.isAdmin} />} />
+  render() {
+    return (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Route path="/">
+          <SiderComponent userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} />
+        </Route>
+        <Layout>
+          <Route path="/">
+            <HeaderComponent />
+          </Route>
+          <Content style={{ margin: '24px 16px 0' }}>
+            <Switch>
+              <Route path='/dashboard'><Dashboard isNotificationMessage={this.props.isNotificationMessage} isAdmin={this.props.isAdmin} userInfo={this.props.userInfo} /></Route>
+              <Route path='/signup' component={SignUp} />
+              <Route path='/forgotpass' component={ForgotPassword} />
+              <Route path='/applyleave'><ApplyLeave userInfo={this.props.userInfo} isAdmin={this.props.isAdmin} /></Route>
+              <Route path='/carryforwardrequest' component={CarryForwardRequest} />
+              <Route path='/leavecancelrequest' component={LeaveCancelRequest} />
+              <Route path='/leavehistory' component={LeaveHistory} />
+              <Route path='/viewcalendar' component={ViewCalendar} />
+              <Route path='/viewleaverequest' render={(props) => <ViewLeaveRequest isAdmin={this.props.isAdmin} />} />
 
-                        </Switch>
-                    </Content>
-                </Layout>
-            </Layout>
+            </Switch>
+          </Content>
+        </Layout>
+      </Layout>
 
-        );
+    );
 
-    }
+  }
 }
 function mapStateToProps(state) {
-    return {
-        user: state.activeUser
-    }
+  return {
+    user: state.activeUser
+  }
 }
 export default connect(mapStateToProps)(RoutesPath);

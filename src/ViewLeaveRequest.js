@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Breadcrumb, Table, Tag, Input, Modal, Button } from 'antd';
+import { Breadcrumb, Table, Tag, Input, Modal, Button, Result } from 'antd';
 // import type { MenuProps } from 'antd';  
 
 import { Select } from 'antd';
@@ -33,6 +33,7 @@ class ViewLeaveRequest extends React.Component {
   getData = () => {
     axios.get(`http://localhost:3001/users-config-grid/admin`)
       .then((response) => {
+        debugger
         console.log('data-----', response.data)
         this.setState({ data: response.data })
       })
@@ -127,14 +128,22 @@ class ViewLeaveRequest extends React.Component {
           <Breadcrumb.Item>View Request</Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-          <Search placeholder="Search..." onSearch={value => console.log(value)} style={{ width: 200 }} />
-          <br></br>
-          <br></br>
-          <Table columns={columns} dataSource={this.state.data} rowKey="emp_id" onRow={(record) => ({
-            onClick: () => this.handleRowClick(record),
+          {
+            this.state.data.length ?
+              <>
+                <Search placeholder="Search..." onSearch={value => console.log(value)} style={{ width: 200 }} />
+                <br></br>
+                <br></br>
+                <Table columns={columns} dataSource={this.state.data} rowKey="emp_id" onRow={(record) => ({
+                  onClick: () => this.handleRowClick(record),
 
-          })} />
-
+                })} />
+              </> :
+              <Result
+                status="404"
+                title={this.props.isAdmin ? "NO APPLIED LEAVE" : "You haven't apply for leave yet."}
+              />
+          }
         </div>
         {this.props.isAdmin &&
           <Modal
@@ -196,6 +205,12 @@ class ViewLeaveRequest extends React.Component {
               ''}
           </Modal>
         }
+        {/* <Result
+          status="404"
+          title="NO DATA FOUND"
+          subTitle="Sorry, You havn't apply for leave yet."
+          extra={<Button type="primary">Back Home</Button>}
+        /> */}
       </React.Fragment>
 
     );

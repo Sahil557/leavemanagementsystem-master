@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Login.css';
 import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
-import { Route, Link } from 'react-router-dom';  
+import { Route, Link } from 'react-router-dom';
 // import Dashboard from '../App/Dashboard/Dashboard';
 // import Pathcomp from '../App/Route';
 // import PathComp from '../App/Routes'
@@ -20,106 +20,103 @@ class Login extends React.Component {
       id: '',
       password: '',
       userInfo: {},
-      isAdmin: false
+      isAdmin: false,
+      isNotificationMessage: false
     }
   }
 
   handleSubmit = () => {
     const { id, password } = this.state;
-      axios.get(`http://localhost:3001/${this.state.isAdmin ? "admin" : "users-config"}/${id}/${password}`)
-        .then((response) => {
-          if (response.data.length) {
-            this.setState({ userInfo: response.data[0] });
-            this.setState({ isDashboard: true })
-            notification.success({
-              message: 'Success',
-              description: `Hey ${this.state.isAdmin ? "Admin" : response.data[0].name}, Welcome to LMS`,
-              placement: 'topRight',
-            });
-          }
-        })
-        .catch((error) => {
-        });
-    }
-  
-    componentDidMount() {
-      this.getData();
-    }
+    axios.get(`http://localhost:3001/${this.state.isAdmin ? "admin" : "users-config"}/${id}/${password}`)
+      .then((response) => {
+        if (response.data.length) {
+          this.setState({ userInfo: response.data[0] });
+          this.setState({ isDashboard: true })
+          this.setState({ isNotificationMessage: true });
+        }
+      })
+      .catch((error) => {
+      });
+  }
 
-    getData = () => {
-      const { isAdmin, id } = this.state;
-      axios.get(`http://localhost:3001/users-config-grid/${isAdmin ? id : 'admin'}`)
-        .then((response) =>{
-            console.log('getdataResponse---', response.data)
-        })
-        .catch(error => {
-            console.error(error);
-        });
-      }
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
+    const { isAdmin, id } = this.state;
+    axios.get(`http://localhost:3001/users-config-grid/${isAdmin ? id : 'admin'}`)
+      .then((response) => {
+        console.log('getdataResponse---', response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <>
-      <div className="wrapper">
-        {!this.state.isDashboard ?
-          <div className="login-center">
-            <Form className="login-form">
-              <h6>{this.state.isAdmin ? "Admin Login" : "LMS"}</h6>
-              <h5 className="title">L E A V E  M A N A G E M E N T  S Y S T E M</h5>
-              <br></br>
-              <Form.Item>
-                {getFieldDecorator('username', {
-                  rules: [{ required: true, message: 'Please input your username!' }],
-                })(
-                  <Input
-                    prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                    placeholder="Username"
-                    value={this.state.id}
-                    onChange={(e) => { this.setState({ id: e.target.value }) }}
-                  />,
-                )}
-              </Form.Item>
-              <Form.Item>
-                {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'Please input your Password!' }],
-                })(
-                  <Input
-                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                    type="password"
-                    value={this.state.password}
-                    placeholder="Password"
+        <div className="wrapper">
+          {!this.state.isDashboard ?
+            <div className="login-center">
+              <Form className="login-form">
+                <h6>{this.state.isAdmin ? "Admin Login" : "LMS"}</h6>
+                <h5 className="title">L E A V E  M A N A G E M E N T  S Y S T E M</h5>
+                <br></br>
+                <Form.Item>
+                  {getFieldDecorator('username', {
+                    rules: [{ required: true, message: 'Please input your username!' }],
+                  })(
+                    <Input
+                      prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                      placeholder="Username"
+                      value={this.state.id}
+                      onChange={(e) => { this.setState({ id: e.target.value }) }}
+                    />,
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  {getFieldDecorator('password', {
+                    rules: [{ required: true, message: 'Please input your Password!' }],
+                  })(
+                    <Input
+                      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                      type="password"
+                      value={this.state.password}
+                      placeholder="Password"
 
-                    onChange={(e) => { this.setState({ password: e.target.value }) }}
-                  />,
-                )}
-              </Form.Item>
-              <Form.Item>
-                {getFieldDecorator('remember', {
-                  valuePropName: 'checked',
-                  initialValue: true,
-                })(<Checkbox>Remember me</Checkbox>)}
-                <a className="login-form-forgot" href="/forgotpass">
-                  Forgot password
-                </a>
-                <div>
-                  <Link to='/dashboard'>
-                  <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
-                    Log in
-                  </Button>
-                  </Link>
-                  <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
-                </div>
-                {/* <div className="text-right p-t-225">
+                      onChange={(e) => { this.setState({ password: e.target.value }) }}
+                    />,
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  {getFieldDecorator('remember', {
+                    valuePropName: 'checked',
+                    initialValue: true,
+                  })(<Checkbox>Remember me</Checkbox>)}
+                  <a className="login-form-forgot" href="/forgotpass">
+                    Forgot password
+                  </a>
+                  <div>
+                    <Link to='/dashboard'>
+                      <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
+                        Log in
+                      </Button>
+                    </Link>
+                    <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
+                  </div>
+                  {/* <div className="text-right p-t-225">
               <span className="txt1">Don’t have an account? </span>
               <a className="txt2" href="Signup"> Sign Up</a>
             </div> */}
-              </Form.Item>
-            </Form>
-          </div>
-          : <RoutesPath userInfo={this.state.userInfo} isAdmin={this.state.isAdmin} />
-        }
-      </div>
+                </Form.Item>
+              </Form>
+            </div>
+            : <RoutesPath userInfo={this.state.userInfo} isAdmin={this.state.isAdmin} isNotificationMessage={this.state.isNotificationMessage} />
+          }
+        </div>
       </>
     );
   }
