@@ -2,11 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import './Login.css';
-import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
-import { Route, Link } from 'react-router-dom';
-// import Dashboard from '../App/Dashboard/Dashboard';
-// import Pathcomp from '../App/Route';
-// import PathComp from '../App/Routes'
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
 import RoutesPath from '../App/Routing/RoutesPath';
 
 class Login extends React.Component {
@@ -36,6 +33,7 @@ class Login extends React.Component {
         }
       })
       .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -47,7 +45,7 @@ class Login extends React.Component {
     const { isAdmin, id } = this.state;
     axios.get(`http://localhost:3001/users-config-grid/${isAdmin ? id : 'admin'}`)
       .then((response) => {
-        console.log('getdataResponse---', response.data)
+        // console.log('getdataResponse---', response.data)
       })
       .catch(error => {
         console.error(error);
@@ -96,7 +94,7 @@ class Login extends React.Component {
                     valuePropName: 'checked',
                     initialValue: true,
                   })(<Checkbox>Remember me</Checkbox>)}
-                  <a className="login-form-forgot" href="/forgotpass">
+                  <a className="login-form-forgot" href="/">
                     Forgot password
                   </a>
                   <div>
@@ -105,11 +103,11 @@ class Login extends React.Component {
                         Log in
                       </Button>
                     </Link>
-                    <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
+                    <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a href='/' onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
                   </div>
                   {/* <div className="text-right p-t-225">
               <span className="txt1">Don’t have an account? </span>
-              <a className="txt2" href="Signup"> Sign Up</a>
+              <a className="txt2" href=""> Sign Up</a>
             </div> */}
                 </Form.Item>
               </Form>

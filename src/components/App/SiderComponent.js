@@ -1,5 +1,4 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Layout, Menu, Icon, Avatar} from 'antd';
 import {Link} from 'react-router-dom'
@@ -9,9 +8,9 @@ import {Link} from 'react-router-dom'
   
   class SiderComponent extends React.Component {
 
-    constructor(props){
-        super(props)
-      }
+    // constructor(props){
+    //     super(props)
+    //   }
 
     logout = () =>{
 
@@ -92,9 +91,6 @@ import {Link} from 'react-router-dom'
                         </Menu.Item>
                     </Menu>
                 </Sider>
-
-              
-         
       );
 
     }

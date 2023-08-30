@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Layout, Row, Col, Statistic, Icon, Alert } from 'antd';
+import { Layout, Statistic, Icon, Alert } from 'antd';
 import './Dashboard.css';
-const { Content, Footer, } = Layout;
+const { Footer, } = Layout;
 
 class Dashboard extends React.Component {
 
@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
           />
         }
 
-        <div style={{ marginLeft: '20px', padding: 24, background: '#fff', minHeight: 30, width: 450, background: 'pink' }}>
+        <div style={{ marginLeft: '20px', padding: 24, minHeight: 30, width: 450, background: 'pink' }}>
           {/* <span style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}> */}
           <span style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span style={{ display: 'flex', justifyContent: 'start' }}>

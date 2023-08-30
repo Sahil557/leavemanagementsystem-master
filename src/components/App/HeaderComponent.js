@@ -5,15 +5,8 @@ import {
     collapseSideBar,
     expandSideBar
 } from '../../actions/index';
-import {
-    Layout,
-    Icon,
-    Badge,
-    Row,
-    Col
-} from 'antd';
+import { Layout, Icon, Badge, Row, Col } from 'antd';
 import {Link} from 'react-router-dom';
-//import './Dashboard.css';
 
 const {Header} = Layout;
 
@@ -25,11 +18,11 @@ class HeaderComponent extends React.Component {
 
     onClickcollapseSidebar = (event) => {
 
-        if (this.props.sidebar.isCollapsed == true) {
+        if (this.props.sidebar.isCollapsed === true) {
           console.log("expand");
           console.log(this.props);
           this.props.expandSideBar();
-        } else if (this.props.sidebar.isCollapsed == false) {
+        } else if (this.props.sidebar.isCollapsed === false) {
             
               console.log("collapsed");
               console.log(this.props);
@@ -38,10 +31,6 @@ class HeaderComponent extends React.Component {
             
         }
     }
-
-    // logout = () => {
-    //     this.props.history.push('/login')
-    // }
 
     render() {
         return (

@@ -1,7 +1,6 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Layout, Row, Col, Statistic, Icon } from 'antd';
+import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom'
 import ApplyLeave from '../../ApplyLeave/ApplyLeave';
 import CarryForwardRequest from '../../../CarryForwardRequest';
@@ -15,16 +14,15 @@ import SignUp from '../../Authentication/Signup';
 import ForgotPassword from '../../Authentication/ForgetPassword';
 import './RoutesPath.css';
 import Dashboard from '../Dashboard/Dashboard';
-// import Login from '../../Authentication/Login'
 import { EmployeeData } from '../EmployeeData/EmployeeData';
 
-const { Content, Footer, } = Layout;
+const { Content } = Layout;
 
 class RoutesPath extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   render() {
     return (

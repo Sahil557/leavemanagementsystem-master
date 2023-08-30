@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import fetchCancelLeaveRequestsAction from './api/CancelLeaveRequest-Service';
@@ -72,25 +72,14 @@ class LeaveCancelRequest extends React.Component {
     }
 
     execute = () =>{
-        
-       
-         console.log("Error: " + this.props.error);
-         console.log("Products: " + this.props.cancelLeaveRequests);
-         console.log("Pending: " + this.props.pending);
     }
     shouldComponentRender() {
-        const {pending} = this.props;
         if(this.pending === false) return false;
         // more tests
         return true;
     }
 
     render() {
-        const {cancelLeaveRequests, error, pending} = this.props;
-
-       
-
-        const data1 = cancelLeaveRequests;
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
         if (!this.shouldComponentRender()) return <div style={{textAlign: 'center', marginTop: '80px'}}><Spin style={{margin: '0 auto'}} indicator={antIcon}/></div>
 

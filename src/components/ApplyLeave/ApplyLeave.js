@@ -6,9 +6,9 @@ import {
     Upload,
     Breadcrumb,
     Statistic,
-    Table,
+    // Table,
     Icon,
-    Tag,
+    // Tag,
     Input,
     Col,
     Select,
@@ -16,7 +16,6 @@ import {
     Button,
     DatePicker,
     Modal,
-    Alert,
     notification
 } from 'antd';
 // import { SmileOutlined } from '@ant-design/icons';
@@ -65,7 +64,7 @@ class ApplyLeave extends React.Component {
             // loading: true,
             // error: null
         }
-        this.refreshgetAllLeaveType = this.refreshgetAllLeaveType.bind(this)
+        // this.refreshgetAllLeaveType = this.refreshgetAllLeaveType.bind(this)
     }
 
     handleStartDateChange = (date) => {
@@ -80,7 +79,7 @@ class ApplyLeave extends React.Component {
         return current && current < moment().startOf('day');
     };
 
-    refreshgetAllLeaveType() {
+    // refreshgetAllLeaveType() {
         /* this.state.leaveType.splice(0, this.state.leaveType.length);
                getAllLeaveType().then((response) => {
                        for (let i = 0; i < response.length; i++) {
@@ -92,12 +91,12 @@ class ApplyLeave extends React.Component {
                    });
        
                    console.log(this.state.leaveType);*/
-    }
+    // }
 
-    componentDidMount() {
-        this.refreshgetAllLeaveType();
+    // componentDidMount() {
+    //     this.refreshgetAllLeaveType();
 
-    }
+    // }
 
     componentDidUpdate(prevProps, prevState) {
         const { startDate, endDate } = this.state;
@@ -201,50 +200,50 @@ class ApplyLeave extends React.Component {
 
     render() {
 
-        const columns = [
-            {
-                title: 'From',
-                dataIndex: 'start_date',
-                key: 'start_date'
-            },
-            {
-                title: 'To',
-                dataIndex: 'end_date',
-                key: 'end_date'
-            },
-            {
-                title: 'Number of Days',
-                dataIndex: 'total_days',
-                key: 'total_days',
-                align: 'center'
-            },
-            {
-                title: 'Leave Type',
-                dataIndex: 'leave_type',
-                key: 'leave_type'
+        // const columns = [
+        //     {
+        //         title: 'From',
+        //         dataIndex: 'start_date',
+        //         key: 'start_date'
+        //     },
+        //     {
+        //         title: 'To',
+        //         dataIndex: 'end_date',
+        //         key: 'end_date'
+        //     },
+        //     {
+        //         title: 'Number of Days',
+        //         dataIndex: 'total_days',
+        //         key: 'total_days',
+        //         align: 'center'
+        //     },
+        //     {
+        //         title: 'Leave Type',
+        //         dataIndex: 'leave_type',
+        //         key: 'leave_type'
 
-            },
-            {
-                title: 'Reason',
-                dataIndex: 'reason',
-                key: 'reason',
-            },
-            {
-                title: 'Status',
-                key: 'status',
-                dataIndex: 'status',
-                render: status => (
-                    <span>
-                        {status === 'pending' &&
-                            <Tag color={"orange"} key={status}>
-                                {status}
-                            </Tag>
-                        }
-                    </span>
+        //     },
+        //     {
+        //         title: 'Reason',
+        //         dataIndex: 'reason',
+        //         key: 'reason',
+        //     },
+        //     {
+        //         title: 'Status',
+        //         key: 'status',
+        //         dataIndex: 'status',
+        //         render: status => (
+        //             <span>
+        //                 {status === 'pending' &&
+        //                     <Tag color={"orange"} key={status}>
+        //                         {status}
+        //                     </Tag>
+        //                 }
+        //             </span>
 
-                ),
-            },
-        ];
+        //         ),
+        //     },
+        // ];
 
         return (
             <React.Fragment>
