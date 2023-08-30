@@ -80,10 +80,13 @@ import {Link} from 'react-router-dom'
                             <Menu.Item key="8">
                                 <Link to='/viewleaverequest'>View leave request</Link>
                             </Menu.Item>
+                            <Menu.Item key="9">
+                                <Link to='/employees'>Employees</Link>
+                            </Menu.Item>
                             </SubMenu>
                             }
 
-                        <Menu.Item key="9" disabled>
+                        <Menu.Item key="10" disabled>
                             <Icon type="setting"/>
                             <span>Setting</span>
                         </Menu.Item>

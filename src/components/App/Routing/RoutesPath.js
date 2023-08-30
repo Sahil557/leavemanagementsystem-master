@@ -16,6 +16,7 @@ import ForgotPassword from '../../Authentication/ForgetPassword';
 import './RoutesPath.css';
 import Dashboard from '../Dashboard/Dashboard';
 // import Login from '../../Authentication/Login'
+import { EmployeeData } from '../EmployeeData/EmployeeData';
 
 const { Content, Footer, } = Layout;
 
@@ -46,7 +47,7 @@ class RoutesPath extends React.Component {
               <Route path='/leavehistory' component={LeaveHistory} />
               <Route path='/viewcalendar' component={ViewCalendar} />
               <Route path='/viewleaverequest' render={(props) => <ViewLeaveRequest isAdmin={this.props.isAdmin} />} />
-
+              <Route path='/employees' render={(props) => <EmployeeData/>}/>
             </Switch>
           </Content>
         </Layout>
