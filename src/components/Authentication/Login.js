@@ -103,7 +103,7 @@ class Login extends React.Component {
                         Log in
                       </Button>
                     </Link>
-                    <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a href='#' onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
+                    <p>If you are a {this.state.isAdmin ? "User" : "Admin"} <a href='/' onClick={() => { this.setState({ isAdmin: !this.state.isAdmin }) }}>click here</a> to Login</p>
                   </div>
                   {/* <div className="text-right p-t-225">
               <span className="txt1">Don’t have an account? </span>
